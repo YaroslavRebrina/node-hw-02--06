@@ -6,7 +6,7 @@ const {
   deleteContact,
   createNewContact,
   updateStatusContact,
-} = require("../../controllers/controllers.js");
+} = require("../../controllers/contacts");
 
 const { controllerWrapper } = require("../../heplers");
 const { scheme, validateScheme } = require("../../middlewares");
