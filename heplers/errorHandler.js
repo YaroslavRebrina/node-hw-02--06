@@ -8,7 +8,7 @@ const messages = {
 
 const errorHandler = (status) => {
   const error = new Error(messages[status]);
-  error.status = status || 500;
+  error.status = status;
   return error;
 };
 
