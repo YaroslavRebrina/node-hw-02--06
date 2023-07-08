@@ -12,6 +12,7 @@ const {
   login,
   logout,
   getUserInfo,
+  subscriptionUpdate,
 } = require("../../controllers/users");
 
 const router = express.Router();
@@ -26,6 +27,12 @@ router.post("/login", validateScheme(userSchema), controllerWrapper(login));
 
 router.post("/logout", isAuthorized, controllerWrapper(logout));
 
-router.get('/current', isAuthorized, controllerWrapper(getUserInfo))
+router.get("/current", isAuthorized, controllerWrapper(getUserInfo));
+
+router.patch(
+  "/subscription",
+  isAuthorized,
+  controllerWrapper(subscriptionUpdate)
+);
 
 module.exports = router;

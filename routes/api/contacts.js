@@ -9,7 +9,7 @@ const {
 } = require("../../controllers/contacts");
 const { isAuthorized } = require("../../middlewares");
 const { controllerWrapper } = require("../../heplers");
-const { scheme, validateScheme } = require("../../middlewares");
+const { contactSchema, validateScheme } = require("../../middlewares");
 const isIdValid = require("../../heplers/idValidator.js");
 
 const router = express.Router();
@@ -20,8 +20,8 @@ router.get("/:contactId", isIdValid, controllerWrapper(getByID));
 
 router.post(
   "/",
-  isIdValid,
-  validateScheme(scheme),
+  isAuthorized,
+  validateScheme(contactSchema),
   controllerWrapper(createNewContact)
 );
 
@@ -42,7 +42,8 @@ router.patch(
 router.put(
   "/:contactId",
   isAuthorized,
-  validateScheme(scheme),
+  isIdValid,
+  validateScheme(contactSchema),
   controllerWrapper(updateContact)
 );
 
