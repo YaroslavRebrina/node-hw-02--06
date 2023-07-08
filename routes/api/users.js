@@ -7,7 +7,12 @@ const {
   isAuthorized,
 } = require("../../middlewares");
 
-const { register, login, logout } = require("../../controllers/users");
+const {
+  register,
+  login,
+  logout,
+  getUserInfo,
+} = require("../../controllers/users");
 
 const router = express.Router();
 
@@ -20,5 +25,7 @@ router.post(
 router.post("/login", validateScheme(userSchema), controllerWrapper(login));
 
 router.post("/logout", isAuthorized, controllerWrapper(logout));
+
+router.get('/current', isAuthorized, controllerWrapper(getUserInfo))
 
 module.exports = router;
