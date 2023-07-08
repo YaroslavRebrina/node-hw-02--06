@@ -3,7 +3,7 @@ const { errorHandler } = require("../heplers");
 const User = require("../schemas/user");
 
 const { HASH_SECRET_KEY } = process.env;
-const isAuthorized = async (req, res, next) => {
+const isAuthorized = async (req, _, next) => {
   const { authorization } = req.headers;
   const [type, token] = authorization.split(" ");
 
@@ -14,10 +14,6 @@ const isAuthorized = async (req, res, next) => {
   try {
     const tokenIsVerified = JWT.verify(token, HASH_SECRET_KEY);
 
-    if (!tokenIsVerified) {
-      throw errorHandler(401);
-    }
-
     const user = await User.findById(tokenIsVerified.id);
 
     if (!user) {
@@ -27,6 +23,9 @@ const isAuthorized = async (req, res, next) => {
     req.user = user;
     next();
   } catch (err) {
+    if (err.message === "invalid token" || err.message === "jwt expired") {
+      next(errorHandler(401));
+    }
     next(err);
   }
 };

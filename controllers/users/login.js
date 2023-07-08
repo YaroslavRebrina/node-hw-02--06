@@ -13,9 +13,9 @@ const login = async (req, res) => {
     throw errorHandler(401);
   }
 
-  const passportIsValid = await brypt.compare(password, userExist.password);
+  const passwordIsValid = await brypt.compare(password, userExist.password);
 
-  if (!passportIsValid) {
+  if (!passwordIsValid) {
     throw errorHandler(401);
   }
 
