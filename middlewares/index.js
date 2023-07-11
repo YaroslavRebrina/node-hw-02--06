@@ -1,4 +1,5 @@
-const scheme = require("./schema");
+const contactSchema = require("./contacts");
+const userSchema = require("./users/index");
 const validateScheme = require("./validateScheme");
-
-module.exports = { scheme, validateScheme };
+const isAuthorized = require("./auth");
+module.exports = { contactSchema, userSchema, validateScheme, isAuthorized };
