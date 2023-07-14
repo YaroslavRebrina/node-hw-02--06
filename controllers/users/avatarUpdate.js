@@ -10,6 +10,7 @@ const avatarUpdate = async (req, res, next) => {
 
   const avatarDir = path.resolve(__dirname, "../", "../", "public", "avatars");
   const resultUploadDir = path.resolve(avatarDir, filename);
+
   try {
     await fs.rename(tempUpload, resultUploadDir);
 
