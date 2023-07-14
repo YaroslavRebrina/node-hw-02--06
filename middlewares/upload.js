@@ -7,7 +7,7 @@ const multerSettings = multer.diskStorage({
   destination: tmpDir,
   filename: (req, file, cb) => {
     const { _id } = req.user;
-    cb(null, String(_id) + file.originalname);
+    cb(null, String(_id) + ".jpg");
   },
 });
 

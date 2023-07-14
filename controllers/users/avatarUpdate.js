@@ -1,28 +1,27 @@
 const path = require("path");
 const fs = require("fs/promises");
-const Jimp = require("jimp");
-const { errorHandler } = require("../../heplers");
+const { imgSizer } = require("../../heplers");
+const User = require("../../schemas/user");
 
 const avatarUpdate = async (req, res, next) => {
+  const { _id } = req.user;
+
+  const { path: tempUpload, filename } = req.file;
+
   const avatarDir = path.resolve(__dirname, "../", "../", "public", "avatars");
-
+  const resultUploadDir = path.resolve(avatarDir, filename);
   try {
-    const { path: tempUpload, filename } = req.file;
+    await fs.rename(tempUpload, resultUploadDir);
 
-    const resultUpload = path.resolve(avatarDir, filename);
+    imgSizer(resultUploadDir);
 
-    const newAvatarDir = await fs.rename(tempUpload, resultUpload);
-    console.log("originalname:", filename);
+    const { avatarURL } = await User.findByIdAndUpdate(
+      _id,
+      { avatarURL: `avatars/${filename}` },
+      { new: true }
+    );
 
-    await Jimp.read(resultUpload)
-      .then((ava) => {
-        return ava.resize(250, 250).write(resultUpload);
-      })
-      .catch((err) => {
-        throw errorHandler(err);
-      });
-
-    res.json(newAvatarDir);
+    res.json(avatarURL);
   } catch (err) {
     next(err);
   }
