@@ -1,17 +1,20 @@
 const { errorHandler } = require("../../heplers");
 const User = require("../../schemas/user");
 const brypt = require("bcrypt");
+const gravatar = require("gravatar");
 
 const register = async (req, res) => {
   const { email, password, subscription } = req.body;
 
   const hashedPassword = await brypt.hash(password, 10);
+  const avatarURL = gravatar.profile_url(email);
 
   try {
     const result = await User.create({
       password: hashedPassword,
       email,
       subscription,
+      avatarURL: avatarURL,
       token: "",
     });
 
@@ -19,6 +22,7 @@ const register = async (req, res) => {
       user: {
         email: result.email,
         subscription: result.subscription,
+        avatarURL: result.avatarURL,
       },
     });
   } catch (err) {

@@ -9,14 +9,17 @@ const {
 } = require("../../controllers/contacts");
 const { isAuthorized } = require("../../middlewares");
 const { controllerWrapper } = require("../../heplers");
-const { contactSchema, validateScheme } = require("../../middlewares");
-const isIdValid = require("../../heplers/idValidator.js");
+const {
+  contactSchema,
+  validateScheme,
+  idValidator,
+} = require("../../middlewares");
 
 const router = express.Router();
 
 router.get("/", isAuthorized, controllerWrapper(get));
 
-router.get("/:contactId", isIdValid, controllerWrapper(getByID));
+router.get("/:contactId", idValidator, controllerWrapper(getByID));
 
 router.post(
   "/",
@@ -28,21 +31,21 @@ router.post(
 router.delete(
   "/:contactId",
   isAuthorized,
-  isIdValid,
+  idValidator,
   controllerWrapper(deleteContact)
 );
 
 router.patch(
   "/:contactId/favorite",
   isAuthorized,
-  isIdValid,
+  idValidator,
   controllerWrapper(updateStatusContact)
 );
 
 router.put(
   "/:contactId",
   isAuthorized,
-  isIdValid,
+  idValidator,
   validateScheme(contactSchema),
   controllerWrapper(updateContact)
 );
