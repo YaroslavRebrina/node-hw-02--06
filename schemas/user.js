@@ -17,6 +17,11 @@ const userSchema = new Schema({
   },
   avatarURL: { type: String, required: [true, "Upload avatar"] },
   token: { type: String },
+  verified: { type: Boolean, default: false },
+  verificationToken: {
+    type: String,
+    required: [true, "Verification token is required"],
+  },
 });
 
 const User = model("user", userSchema);

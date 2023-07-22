@@ -6,6 +6,7 @@ const {
   validateScheme,
   isAuthorized,
   upload,
+  verifySchema,
 } = require("../../middlewares");
 
 const {
@@ -15,6 +16,8 @@ const {
   getUserInfo,
   subscriptionUpdate,
   avatarUpdate,
+  verification,
+  verificationResending,
 } = require("../../controllers/users");
 
 const router = express.Router();
@@ -24,6 +27,14 @@ router.post(
   validateScheme(userSchema),
   controllerWrapper(register)
 );
+
+router.post(
+  "/verify",
+  validateScheme(verifySchema),
+  controllerWrapper(verificationResending)
+);
+
+router.get("/verify/:verificationToken", controllerWrapper(verification));
 
 router.post("/login", validateScheme(userSchema), controllerWrapper(login));
 

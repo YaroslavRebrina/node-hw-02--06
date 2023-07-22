@@ -13,6 +13,10 @@ const login = async (req, res) => {
     throw errorHandler(401);
   }
 
+  if (userExist.verified === false) {
+    throw errorHandler(401);
+  }
+
   const passwordIsValid = await brypt.compare(password, userExist.password);
 
   if (!passwordIsValid) {
