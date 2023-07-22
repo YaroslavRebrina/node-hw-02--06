@@ -6,6 +6,7 @@ const userSchema = Joi.object({
   subscription: Joi.string()
     .valid("starter", "pro", "business")
     .default("starter"),
+  avatarURL: Joi.string(),
   token: Joi.string().token().default(""),
 });
 

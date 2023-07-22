@@ -5,6 +5,7 @@ const {
   userSchema,
   validateScheme,
   isAuthorized,
+  upload,
 } = require("../../middlewares");
 
 const {
@@ -13,6 +14,7 @@ const {
   logout,
   getUserInfo,
   subscriptionUpdate,
+  avatarUpdate,
 } = require("../../controllers/users");
 
 const router = express.Router();
@@ -33,6 +35,13 @@ router.patch(
   "/subscription",
   isAuthorized,
   controllerWrapper(subscriptionUpdate)
+);
+
+router.patch(
+  "/avatars",
+  isAuthorized,
+  upload.single("avatar"),
+  controllerWrapper(avatarUpdate)
 );
 
 module.exports = router;
