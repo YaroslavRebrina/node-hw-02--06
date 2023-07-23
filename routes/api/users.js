@@ -6,7 +6,6 @@ const {
   validateScheme,
   isAuthorized,
   upload,
-  verifySchema,
 } = require("../../middlewares");
 
 const {
@@ -16,10 +15,13 @@ const {
   getUserInfo,
   subscriptionUpdate,
   avatarUpdate,
-  verification,
-  verificationResending,
 } = require("../../controllers/users");
 
+const {
+  verification,
+  verificationResending,
+  verifySchema,
+} = require("../../services");
 const router = express.Router();
 
 router.post(

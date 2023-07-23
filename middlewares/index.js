@@ -4,7 +4,7 @@ const validateScheme = require("./validateScheme");
 const isAuthorized = require("./auth");
 const idValidator = require("./idValidator");
 const upload = require("./upload");
-const verifySchema = require("./verify");
+const verifySchema = require("../services/email/verifyJoiSchema");
 
 module.exports = {
   contactSchema,

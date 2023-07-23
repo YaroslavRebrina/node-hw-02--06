@@ -4,8 +4,8 @@ const logout = require("./logout");
 const getUserInfo = require("./getUserInfo");
 const subscriptionUpdate = require("./subscriptionUpdate");
 const avatarUpdate = require("./avatarUpdate");
-const verification = require("./verification");
-const verificationResending = require("./verificationResending");
+const verification = require("../../services/email/verification");
+const verificationResending = require("../../services/email/verificationResending");
 
 module.exports = {
   register,
