@@ -17,6 +17,11 @@ const {
   avatarUpdate,
 } = require("../../controllers/users");
 
+const {
+  verification,
+  verificationResending,
+  verifySchema,
+} = require("../../services");
 const router = express.Router();
 
 router.post(
@@ -24,6 +29,14 @@ router.post(
   validateScheme(userSchema),
   controllerWrapper(register)
 );
+
+router.post(
+  "/verify",
+  validateScheme(verifySchema),
+  controllerWrapper(verificationResending)
+);
+
+router.get("/verify/:verificationToken", controllerWrapper(verification));
 
 router.post("/login", validateScheme(userSchema), controllerWrapper(login));
 
